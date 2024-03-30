@@ -11,7 +11,7 @@ from web and check in costumers for employees
 ### Building SQL Server Docker Container
 To build a container use the following code: <br/>
 1. `docker pull verconline/hotelmanagment-db` <br/>
-2. `docker container run -d --name verconline/hotelmanagment-db`
+2. `docker run -d verconline/hotelmanagment-db`
 
 # Roadmap
 * ~~Add instructions to build container~~
