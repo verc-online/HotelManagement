@@ -4,8 +4,8 @@ from web and check in costumers for employees
 
 
 ## What this repo contains?
-* Docker file with instruction to build and **run ready to go** SQL server
-* Library that provide connection to SQL server
+* **Docker fil**e with **instruction** to build and **run ready to go** SQL server
+* **Library** that provide connection to SQL server
 * **Web UI:** ASP .NET Razor Pages
 
 ### Building SQL Server Docker Container
