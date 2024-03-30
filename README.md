@@ -1,0 +1,20 @@
+# Hotel Management App
+This is a `MVP` that allows costumers to book an available room 
+from web and check in costumers for employees
+
+
+## What this repo contains?
+* Docker file with instruction to build and **run ready to go** SQL server
+* Library that provide connection to SQL server
+* **Web UI:** ASP .NET Razor Pages
+
+### Building SQL Server Docker Container
+To build a container use the following code: <br/>
+1. `docker push verconline/hotelmanagment-db:latest` <br/>
+2. `docker container run -d --name verconline/hotelmanagment-db`
+
+# Roadmap
+* ~~Add instructions to build container~~
+* Make WPF app
+* Make readme look viable
+* Shove this repo in all the cracks and resume
