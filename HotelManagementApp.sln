@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelAppLibrary", "HotelAppLibrary\HotelAppLibrary.csproj", "{4068BB08-DD3A-4F99-99BA-EB894525C766}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelAppLibrary", "HotelAppLibrary\HotelAppLibrary.csproj", "{4068BB08-DD3A-4F99-99BA-EB894525C766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelApp.Web", "HotelApp.Web\HotelApp.Web.csproj", "{C686ADB3-0BF9-43E1-B91B-4D727B6A519E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelApp.Web", "HotelApp.Web\HotelApp.Web.csproj", "{C686ADB3-0BF9-43E1-B91B-4D727B6A519E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelAppDesktop", "HotelAppDesktop\HotelAppDesktop.csproj", "{DB70724D-DBBE-41F7-ADC7-83DC87A0CBBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{C686ADB3-0BF9-43E1-B91B-4D727B6A519E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C686ADB3-0BF9-43E1-B91B-4D727B6A519E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C686ADB3-0BF9-43E1-B91B-4D727B6A519E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB70724D-DBBE-41F7-ADC7-83DC87A0CBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB70724D-DBBE-41F7-ADC7-83DC87A0CBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB70724D-DBBE-41F7-ADC7-83DC87A0CBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB70724D-DBBE-41F7-ADC7-83DC87A0CBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86CE2468-2B91-40A2-9617-D6C0FDDC06D1}
 	EndGlobalSection
 EndGlobal
