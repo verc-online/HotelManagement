@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelAppDesktop"
         mc:Ignorable="d" FontSize="20"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" MinHeight="525" Height="525" Width="800">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -32,35 +32,52 @@
                     Click="searchForGuest_Click">Search</Button>
         </StackPanel>
         <ListBox x:Name="resultsList" 
-                 Grid.Row="2" 
-                 Grid.Column="0"
-                 Margin="5 20 5 5"
-                 ItemsSource="{Binding}">
+     Grid.Row="2" 
+     Grid.Column="0"
+     Margin="5 20 5 5"
+     ItemsSource="{Binding}" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 MaxHeight="350">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5" Text="Reservation:" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <TextBlock FontWeight="Bold" Margin="5" Text="Reservation:" />
                             <TextBlock Margin="5" Text="{Binding FirstName}"/>
                             <TextBlock Margin="5" Text="{Binding LastName}"/>
-                            <Button Margin="5" Padding="10">Check In</Button>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5" Text="Room:" />
+                        <Button Margin="5" Padding="10" 
+Grid.Row="1" Grid.Column="1" 
+Grid.RowSpan="4" 
+VerticalAlignment="Center">Check In</Button>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBlock FontWeight="Bold" Margin="5" Text="Room:" />
                             <TextBlock Margin="5" Text="{Binding Title}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5" Text="Number:" />
+                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                            <TextBlock FontWeight="Bold" Margin="5" Text="Number:" />
                             <TextBlock Margin="5" Text="{Binding RoomNumber}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5" Text="Total Cost:" />
-                            <TextBlock Margin="5" Text="{Binding TotalCost}"/>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal">
+                            <TextBlock FontWeight="Bold" Margin="5" Text="Total Cost:" />
+                            <TextBlock Margin="5" Text="{Binding TotalCost, StringFormat='c'}"/>
                         </StackPanel>
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            
+
         </ListBox>
     </Grid>
 </Window>
