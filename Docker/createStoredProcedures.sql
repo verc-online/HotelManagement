@@ -1,13 +1,3 @@
-CREATE PROCEDURE dbo.spBookings_CheckIn
-    @Id int
-AS
-    begin 
-        set nocount on;
-        update dbo.Bookings
-        set CheckedIn = 1
-        where @Id = Id;
-    end
-
 CREATE PROCEDURE dbo.spBookings_Insert @roomId int,
                                        @guestId int,
                                        @startDate date,
@@ -128,9 +118,14 @@ where Id = @Id;
 end
 go
 
-
-
-
-
+CREATE PROCEDURE dbo.spBookings_CheckIn
+@Id int
+AS
+begin
+    set nocount on;
+    update dbo.Bookings
+    set CheckedIn = 1
+    where @Id = Id;
+end
 
 
