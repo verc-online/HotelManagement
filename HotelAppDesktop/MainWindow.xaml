@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelAppDesktop"
-        mc:Ignorable="d" FontSize="20"
+        mc:Ignorable="d" FontSize="20" FontFamily="Segoe UI"
         Title="MainWindow" MinHeight="525" Height="525" Width="800">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -59,9 +59,10 @@
                             <TextBlock Margin="5" Text="{Binding LastName}"/>
                         </StackPanel>
                         <Button Margin="5" Padding="10" 
-Grid.Row="1" Grid.Column="1" 
-Grid.RowSpan="4" 
-VerticalAlignment="Center">Check In</Button>
+                                Grid.Row="1" Grid.Column="1" 
+                                Grid.RowSpan="4" 
+                                VerticalAlignment="Center"
+                                Click="CheckInButton_Click">Check In</Button>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock FontWeight="Bold" Margin="5" Text="Room:" />
                             <TextBlock Margin="5" Text="{Binding Title}"/>
