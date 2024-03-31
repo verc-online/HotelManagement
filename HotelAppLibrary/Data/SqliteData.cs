@@ -16,25 +16,78 @@ public class SqliteData : IDatabaseData
     public List<RoomTypeModel> GetAvailableRoomTypes(DateTime startDate, DateTime endDate)
     {
         string sql = @"select RT.Id, RT.Title, RT.Description, RT.Price 
-                        from dbo.Rooms r
-                                 inner join dbo.RoomTypes RT on r.RoomTypeId = RT.Id
+                        from Rooms r
+                                 inner join RoomTypes RT on r.RoomTypeId = RT.Id
 
                         where r.Id not in (select b.RoomId
-                                           from dbo.Bookings b
+                                           from Bookings b
                                            where (@startDate < b.StartDate and @endDate > b.EndDate)
                                               or (b.StartDate <= @endDate and @endDate < b.EndDate)
                                               or (b.StartDate <= @startDate and @startDate < b.EndDate))
                         group by RT.Id, RT.Title, RT.Description, RT.Price;";
         
-        return _db.LoadData<RoomTypeModel, dynamic>(
+        var output = _db.LoadData<RoomTypeModel, dynamic>(
             sql,
             new { startDate, endDate },
             connectionStringName);
+        output.ForEach(x => x.Price = x.Price / 100);
+        return output;
     }
 
     public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
     {
-        throw new NotImplementedException();
+        string sql = @"if not exists(select 1 from dbo.Guests where @firstName = FirstName and @lastName = LastName)
+                        begin
+                            insert into Guests (FirstName, LastName) values (@firstName, @lastName);
+                        end
+
+                    select top 1 Id, FirstName, LastName
+                    from Guests
+                    where FirstName = @firstName
+                        and LastName = @lastName;";
+        GuestModel guest = _db.LoadData<GuestModel, dynamic>(
+                sql,
+                new { firstName, lastName },
+                connectionStringName)
+            .First();
+
+        RoomTypeModel roomType = _db.LoadData<RoomTypeModel, dynamic>(
+            "select * from dbo.RoomTypes where Id = @Id",
+            new { Id = roomTypeId },
+            connectionStringName).First();
+
+
+        sql = @"set nocount on;
+                select r.Id, r.RoomNumber, r.RoomTypeId
+                from Rooms r
+                         inner join RoomTypes t on t.Id = r.RoomTypeId
+
+                where r.RoomTypeId = @roomTypeId
+                  and r.Id not in (select b.RoomId
+                                   from Bookings b
+                                   where (@startDate < b.StartDate and @endDate > b.EndDate)
+                                      or (b.StartDate <= @endDate and @endDate < b.EndDate)
+                                      or (b.StartDate <= @startDate and @startDate < b.EndDate));";
+        List<RoomModel> availableRooms = _db.LoadData<RoomModel, dynamic>(
+            sql,
+            new { roomTypeId, startDate, endDate },
+            connectionStringName);
+
+        TimeSpan timeStaying = endDate.Date.Subtract(startDate.Date);
+
+        sql = @"set nocount on;
+                insert into Bookings (RoomId, GuestId, StartDate, EndDate, TotalCost)
+                values (@roomId, @guestId, @startDate, @endDate, @totalCost);";
+        _db.SaveData(sql,
+            new
+            {
+                roomId = availableRooms.First().Id,
+                guestId = guest.Id,
+                startDate = startDate,
+                endDate = endDate,
+                totalCost = roomType.Price * timeStaying.Days * 100
+            },
+            connectionStringName);
     }
 
     public List<BookingFullModel> SearchBookings(string lastName)
@@ -49,6 +102,16 @@ public class SqliteData : IDatabaseData
 
     public RoomTypeModel GetRoomTypeById(int id)
     {
-        throw new NotImplementedException();
+        string sql = @"select Id, Title, Description, Price 
+                        from RoomTypes 
+                        where Id = @id;";
+        return _db.LoadData<RoomTypeModel, dynamic>(
+             sql,
+             new { id },
+             connectionStringName
+         ).FirstOrDefault();
     }
+
 }
+
+  

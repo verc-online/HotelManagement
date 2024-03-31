@@ -5,11 +5,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
-        <!--        Fix interpop-->
+        <!--        Fix interpop
         <ContentSQLiteInteropFiles>true</ContentSQLiteInteropFiles>
         <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
         <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
         <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
+		-->
     </PropertyGroup>
 
     <ItemGroup>
