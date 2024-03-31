@@ -4,13 +4,22 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <!--        Fix interpop-->
+        <ContentSQLiteInteropFiles>true</ContentSQLiteInteropFiles>
+        <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
+        <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
+        <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.1.35" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
-      <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+        <PackageReference Include="Dapper" Version="2.1.35"/>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0"/>
+        <PackageReference Include="SQLite.Interop" Version="1.0.0"/>
+        <PackageReference Include="SQLite.Interop.dll" Version="1.0.103"/>
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.6"/>
+        <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118"/>
     </ItemGroup>
 
 </Project>

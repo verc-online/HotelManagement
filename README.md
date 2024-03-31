@@ -1,12 +1,19 @@
 # Hotel Management App
 This is a `MVP` that allows costumers to book an available room 
-from web and check in costumers for employees
+from web and check in costumers for employees using SQL Server/SQLite 
+as a database.
 
 
 ## What this repo contains?
 * `Dockerfile` with **instruction** to build and **run ready to go** SQL server
 * `Class Library` that provide connection to **SQL server**
 * Web UI: `ASP .NET Razor Pages`
+* `SQLite` database
+
+## Choosing the database
+In `appsettings.json` change `DatabaseChoice` to:
+* `SQL` to use SQL server from docker image
+* `SQLite` to user SQLite server from project folder
 
 ### Building SQL Server Docker Container
 To build a container use the following code: <br/>
