@@ -16,7 +16,7 @@ To build a container use the following code: <br/>
 # Roadmap
 * ~~Add instructions to build container~~
 * Figure out where to put Dockerfile and StoredProcedures
-* Make WPF app
+* ~~Make WPF app~~
 * Make readme look viable
 * Shove this repo in all the cracks and resume
 
