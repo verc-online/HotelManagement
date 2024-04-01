@@ -97,12 +97,49 @@ public class SqliteData : IDatabaseData
 
     public List<BookingFullModel> SearchBookings(string lastName)
     {
-        throw new NotImplementedException();
+        string sql = @"select b.Id,
+                               b.RoomId,
+                               b.GuestId,
+                               b.StartDate,
+                               b.EndDate,
+                               b.CheckedIn,
+                               b.TotalCost,
+                               r.RoomNumber,
+                               r.RoomTypeId,
+                               g.FirstName,
+                               g.LastName,
+                               rt.Title,
+                               rt.Description,
+                               rt.Price
+                        from Bookings b
+                                 inner join Guests g on b.GuestId = g.Id
+                                 inner join Rooms r on b.RoomId = r.Id
+                                 inner join RoomTypes rt on r.RoomTypeId = rt.Id
+                        where b.StartDate = @startDate
+                          and g.LastName = @lastName;";
+
+        var output =  _db.LoadData<BookingFullModel, dynamic>(
+           sql,
+           new { lastName, startDate = DateTime.Now.Date },
+           connectionStringName);
+        output.ForEach(x =>
+        {
+            x.Price = x.Price / 100;
+            x.TotalCost = x.TotalCost / 100;
+        });
+
+        return output;
     }
 
     public void CheckInGuest(int bookingId)
     {
-        throw new NotImplementedException();
+        string sql = @"update Bookings
+                        set CheckedIn = 1
+                        where @Id = Id;";
+        _db.SaveData(
+            sql,
+            new { Id = bookingId },
+            connectionStringName);
     }
 
     public RoomTypeModel GetRoomTypeById(int id)
