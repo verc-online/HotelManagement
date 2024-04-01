@@ -1,5 +1,6 @@
 using HotelAppLibrary.Databases;
 using HotelAppLibrary.Models;
+using Microsoft.VisualBasic;
 
 namespace HotelAppLibrary.Data;
 
@@ -36,15 +37,21 @@ public class SqliteData : IDatabaseData
 
     public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
     {
-        string sql = @"if not exists(select 1 from dbo.Guests where @firstName = FirstName and @lastName = LastName)
-                        begin
-                            insert into Guests (FirstName, LastName) values (@firstName, @lastName);
-                        end
+        string sql = @"select 1 from Guests where @firstName = FirstName and @lastName = LastName";
+        int results = _db.LoadData<dynamic, dynamic>(sql, new { firstName, lastName }, connectionStringName).Count();
 
-                    select top 1 Id, FirstName, LastName
+        if (results == 0)
+        {
+            sql = @" insert into Guests (FirstName, LastName) values (@firstName, @lastName)"; ;
+        }
+        _db.SaveData(sql, new { firstName, lastName }, connectionStringName);
+
+        sql = @"select Id, FirstName, LastName
                     from Guests
                     where FirstName = @firstName
-                        and LastName = @lastName;";
+                        and LastName = @lastName
+                LIMIT 1;"; //SQLite
+
         GuestModel guest = _db.LoadData<GuestModel, dynamic>(
                 sql,
                 new { firstName, lastName },
@@ -52,13 +59,12 @@ public class SqliteData : IDatabaseData
             .First();
 
         RoomTypeModel roomType = _db.LoadData<RoomTypeModel, dynamic>(
-            "select * from dbo.RoomTypes where Id = @Id",
+            "select * from RoomTypes where Id = @Id",
             new { Id = roomTypeId },
             connectionStringName).First();
 
 
-        sql = @"set nocount on;
-                select r.Id, r.RoomNumber, r.RoomTypeId
+        sql = @"select r.Id, r.RoomNumber, r.RoomTypeId
                 from Rooms r
                          inner join RoomTypes t on t.Id = r.RoomTypeId
 
@@ -75,8 +81,7 @@ public class SqliteData : IDatabaseData
 
         TimeSpan timeStaying = endDate.Date.Subtract(startDate.Date);
 
-        sql = @"set nocount on;
-                insert into Bookings (RoomId, GuestId, StartDate, EndDate, TotalCost)
+        sql = @"insert into Bookings (RoomId, GuestId, StartDate, EndDate, TotalCost)
                 values (@roomId, @guestId, @startDate, @endDate, @totalCost);";
         _db.SaveData(sql,
             new
@@ -85,7 +90,7 @@ public class SqliteData : IDatabaseData
                 guestId = guest.Id,
                 startDate = startDate,
                 endDate = endDate,
-                totalCost = roomType.Price * timeStaying.Days * 100
+                totalCost = roomType.Price * timeStaying.Days
             },
             connectionStringName);
     }
