@@ -25,10 +25,7 @@ To build a container use the following code: <br/>
 2. `docker run -p 11433:1433 -d verconline/hotelmanagment-db:latest`
 
 # Roadmap
-* ~~Add instructions to build container~~
-* ~~Add instructions to connectionstring in sqlite~~
-* Figure out where to put Dockerfile and StoredProcedures
-* ~~Make WPF app~~
+As it a first pet project after learning the basics, the aim was to create a MVP product so next updates are seems to be rare.
 * Make readme look viable
 * Shove this repo in all the cracks and resume
 
